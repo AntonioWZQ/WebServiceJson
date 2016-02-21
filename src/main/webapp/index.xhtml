@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+        <script src="js/libs/jquery/jquery.min.js"></script>
+    </h:head>
+    <h:body>
+        <input id="empId" value="EMP0001" />
+        <select>
+            <option value="2016">2016</option>
+            <option value="2015">2015</option>
+            <option value="2014">2014</option>
+        </select>
+        <input type="button" value="AjaxRequest"/>
+
+        <script>
+
+            $(":button").click(function () {
+
+                var empId = $("#empId").val();
+                var year = $("select").eq(0).val();
+
+                var jsonData = {empId: empId, year: year};
+
+                $.ajax({
+                    url: "http://localhost:8080/webservice-demo/app/empService/jsonParam"
+                    , type: "POST"
+                    , data: JSON.stringify(jsonData)
+                    , contentType: 'application/json'
+                    , dataType: "json"
+                    , success: function (data, textStatus, jqXHR) {
+                        console.log(data);
+                    }
+                    , error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR);
+                    }
+                });
+
+            });
+        </script>
+    </h:body>
+</html>
+
